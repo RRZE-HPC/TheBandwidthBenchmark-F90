@@ -1,4 +1,4 @@
-# The Bandwidth Benchmark
+# The Bandwidth Benchmark (Fortran version)
 
 This is a collection of simple streaming kernels for teaching purposes.
 It is heavily inspired by John McCalpin's https://www.cs.virginia.edu/stream/.
@@ -19,10 +19,10 @@ It contains the following streaming kernels with corresponding data access patte
 
 1. Configure the toolchain to use in the `Makefile`:
 ```
-TAG = GCC  # Supported GCC, CLANG, ICC
+TAG = GFORTRAN  # Supported GFORTRAN, IFORT
 ```
 
-2. Review the flags for toolchain in the corresponding included file, e.g. `include_GCC.mk`. OpenMP is disabled per default, you can enable it by uncommenting the OpenMP flag:
+2. Review the flags for toolchain in the corresponding included file, e.g. `include_GFORTRAN.mk`. OpenMP is disabled per default, you can enable it by uncommenting the OpenMP flag:
 ```
 OPENMP   = -fopenmp
 ```
@@ -64,30 +64,30 @@ For threaded execution it is recommended to control thread affinity.
 
 We recommend to use likwid-pin for benchmarking:
 ```
-likwid-pin -c 0-3 ./bwbench-GCC  
+likwid-pin -c 0-3 ./bwbench-GFORTRAN  
 ```
 
 Example output for threaded execution:
 ```
--------------------------------------------------------------
-[pthread wrapper] 
+[pthread wrapper]
 [pthread wrapper] MAIN -> 0
-[pthread wrapper] PIN_MASK: 0->1  1->2  2->3  
+[pthread wrapper] PIN_MASK: 0->1  1->2  2->3
 [pthread wrapper] SKIP MASK: 0x0
-        threadid 140271463495424 -> core 1 - OK
-        threadid 140271455102720 -> core 2 - OK
-        threadid 140271446710016 -> core 3 - OK
-OpenMP enabled, running with 4 threads
--------------------------------------------------------------
-Function      Rate (MB/s)   Avg time     Min time     Max time
-Init:        14681.5000       0.0110       0.0109       0.0111
-Sum:         20634.9290       0.0079       0.0078       0.0082
-Copy:        18822.2827       0.0172       0.0170       0.0176
-Update:      28135.9717       0.0115       0.0114       0.0117
-Triad:       19263.0634       0.0253       0.0249       0.0268
-Daxpy:       26718.1377       0.0182       0.0180       0.0187
-STriad:      21229.4470       0.0305       0.0301       0.0313
-SDaxpy:      26714.3897       0.0243       0.0240       0.0253
--------------------------------------------------------------
-Solution Validates
+        threadid 140210970978048 -> core 1 - OK
+        threadid 140210962585344 -> core 2 - OK
+        threadid 140210954192640 -> core 3 - OK
+ ----------------------------------------------
+ Number of Threads =            4
+ ----------------------------------------------
+ -------------------------------------------------------------
+ Function      Rate (MB/s)   Avg time     Min time     Max time
+ Init:         15068.23      0.0123       0.0106       0.0112
+ Sum:          21384.63      0.0088       0.0075       0.0082
+ Copy:         18854.08      0.0190       0.0170       0.0174
+ Update:       28157.37      0.0129       0.0114       0.0114
+ Triad:        19215.55      0.0281       0.0250       0.0263
+ Daxpy:        26606.76      0.0203       0.0180       0.0182
+ STriad:       21279.46      0.0339       0.0301       0.0309
+ SDaxpy:       26629.39      0.0271       0.0240       0.0240
+ -------------------------------------------------------------
 ```
