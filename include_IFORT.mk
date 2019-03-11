@@ -1,9 +1,9 @@
-FC  = gfortran
+FC  = ifort
 CC  = gcc
 LINKER = $(FC)
 
-OPENMP   = # -fopenmp
-FCFLAGS   = -Ofast $(OPENMP) -J./$(TAG)
+OPENMP   = # -qopenmp
+FCFLAGS   = -Ofast $(OPENMP) -module ./$(TAG)
 LFLAGS   = $(OPENMP)
 DEFINES  = -D_GNU_SOURCE
 INCLUDES =
